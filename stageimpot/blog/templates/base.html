@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}base{% endblock %}</title>
+    {% include "head.html" %}
+</head>
+<body>
+<div class="page-stage">
+    <div class="container-fluid">
+        <div class="navbar-stage">
+            {% include 'navbar.html' %}
+        </div>
+    </div>
+</div>
+    <div class="container ">
+        <div class="home-stage">
+            {% block content %}
+
+            {% endblock %}
+        </div>
+
+    {% include "footer.html" %}
+    </div>
+</body>
+</html>
