@@ -10,3 +10,7 @@ def loginStage(request):
         'loginForm':logForm,
     }
     return render(request,template,context)
+
+def inscriptionStage(request):
+    template= 'inscriptionStage.html'
+    return render(request,template)
