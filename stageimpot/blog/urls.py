@@ -4,6 +4,6 @@ from django.urls import path
 from blog.views import * 
 urlpatterns = [
     path('',loginStage,name="loginstage"),
-    path('inscriptionStage',inscriptionStage,name="inscriptionstage")
+    path('inscriptionStage/',inscriptionStage,name="inscriptionstage")
 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
