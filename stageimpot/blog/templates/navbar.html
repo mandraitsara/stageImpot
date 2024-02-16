@@ -74,10 +74,10 @@
             </li>
             {% else %}
               <li>
-                <a class="dropdown-item" href="#">Inscription</a>
+                <a class="dropdown-item" href="{% url 'inscriptionstage' %}">Demande Stage</a>
               </li>
               <li>
-                <a class="dropdown-item" href="#">Connexion</a>
+                <a class="dropdown-item" href="{% url 'loginstage' %}">Connexion</a>
               </li>
             {% endif %}
           </ul>
