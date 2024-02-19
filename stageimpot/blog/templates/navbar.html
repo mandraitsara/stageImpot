@@ -58,29 +58,6 @@
               loading="lazy"
             />
           </a>
-          <ul
-            class="dropdown-menu dropdown-menu-end"
-            aria-labelledby="navbarDropdownMenuAvatar"
-          >
-          {% if users.is_authenticated %}
-            <li>
-              <a class="dropdown-item" href="#">Mon compte</a>
-            </li>
-            <li>
-              <a class="dropdown-item" href="#">Settings</a>
-            </li>
-            <li>
-              <a class="dropdown-item" href="#">Deconnexion</a>
-            </li>
-            {% else %}
-              <li>
-                <a class="dropdown-item" href="{% url 'inscriptionstage' %}">Demande Stage</a>
-              </li>
-              <li>
-                <a class="dropdown-item" href="{% url 'loginstage' %}">Connexion</a>
-              </li>
-            {% endif %}
-          </ul>
         </div>
       </div>
       <!-- Right elements -->
@@ -88,3 +65,9 @@
     <!-- Container wrapper -->
   </nav>
   <!-- Navbar -->
+<div class="container">
+  <div class="breadcrumb-stage">
+    <a href="{% url 'loginstage' %}" class="text-warning">Identification</a> <span class="text-default">|</span> <a class="text-warning" href="{% url 'inscriptionstage' %}">Demande Stage</a>
+  </div>
+</div>
+  

@@ -12,5 +12,9 @@ def loginStage(request):
     return render(request,template,context)
 
 def inscriptionStage(request):
+    stageForm = stageDemandeForm()    
     template= 'inscriptionStage.html'
-    return render(request,template)
+    context = {
+        'stageform':stageForm
+    }
+    return render(request,template, context)

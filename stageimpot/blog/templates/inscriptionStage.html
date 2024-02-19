@@ -1,2 +1,17 @@
 {% extends 'base.html' %}
 {%block title %} Demande de Stage {% endblock %}
+
+{% block content %}
+<h3 class="h3_inscriptionStage text-success">Demande de Stage</h3>
+<div class="row">
+    <div class="col-md-6">
+        {{stageform}}
+        <button class="btn btn-success form-control login-input" type="submit">valider</button>
+    </div>
+    <div class="col-md-6 img-stage-demande " >
+
+    </div>
+</div>
+
+
+{%endblock%}

@@ -30,7 +30,7 @@
   .home-stage {
     margin-top: 25px;
     border: 2px solid var(--color);
-    padding: 10px 10px 10px 10px;
+    padding: 10px 25px 10px 10px;
   }
 
   .text-success.h2-stage {
@@ -44,4 +44,13 @@
     color: #fff !important;
   }
 
+  .h3_inscriptionStage{
+    text-align: center;
+  }
   
+  .img-stage-demande {
+    background-image: url(../img/img_stage_demande.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+
+  }
