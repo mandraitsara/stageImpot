@@ -1,20 +1,89 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from blog.forms import *
+from django.contrib import messages
+from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
+from django.contrib.auth import authenticate,login,logout
 
 # Create your views here.
 
 def loginStage(request):
     template = 'loginStage.html'
-    logForm = loginStageForm()
+    logForm = loginStageForm(request.POST)
     context = {
         'loginForm':logForm,
     }
+    if request.method == "POST":
+        if logForm.is_valid():
+            username = request.POST['username']
+            password = request.POST['password']
+            user = authenticate(username=username,password=password)
+            if user is not None:
+                login(request,user)
+                if user.is_superuser == True:
+                    return redirect('superadmin')
+                else:
+                    return redirect('comptestagiaire')                
+        else:
+            messages.error(request, "authentification échoué")
+            for field in logForm.errors:
+                logForm['field'].field.widget.attrs['class']+="is-invalid"
+            return render(request, template, context)
+
     return render(request,template,context)
 
 def inscriptionStage(request):
-    stageForm = stageDemandeForm()    
-    template= 'inscriptionStage.html'
+    stageForm = UserStageForm(request.POST)    
+    template= 'inscriptionStage.html'  
+
     context = {
         'stageform':stageForm
     }
+
+    if request.method == "POST":
+        username = request.POST['username']
+        password = request.POST['password']
+        nom = request.POST['nom']
+        prenom = request.POST['prenom']
+        email = request.POST['email']
+        try:
+            user_exist = User.objects.get(username=username,email=email)            
+        except:
+            print('')
+        if len(username)<2:
+            messages.error(request, 'Erreur nom')
+            return render(request,template, context)
+        if stageForm.is_valid():
+            username = request.POST['username']
+            password = request.POST['password']
+            nom = request.POST['nom']
+            prenom = request.POST['prenom']
+            email = request.POST['email']
+            user = User.objects.create_user(first_name=nom,last_name=prenom,username=username,email=email,password=password)
+            
+            print(user)
+
+            if user is not None:
+                return redirect('loginstage')
+            else:
+                messages.error(request,'USER - Enregistrement échoué...!')
+                return render(request,template, context)
+
+        else:
+            for field in stageForm.errors:
+                stageForm[field].field.widget.attrs['class'] += " is-invalid "
+            return render(request,template, context)
+            
+    else:
+        messages.error(request, "authentification echoué...")
+        return render(request,template, context)
+    
     return render(request,template, context)
+
+def superAdmin(request):
+    template = "gestgionAdmin.html"
+    return render(request, template)
+
+def compteStagiaire(request):
+    template = "gestionStage.html"
+    return render(request,template)

@@ -32,42 +32,40 @@
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
             <a class="nav-link" href="#">DGI</a>
-          </li>
-         
+          </li>         
         </ul>
         <!-- Left links -->
-      </div>
-     
+      </div>     
           
+
+        {% if user.is_authenticated %}
+        <div class="stage-compte">
+            {% if user.is_superuser == False %}
+              <div class="stage-compte-stagiaire">
+                <span>{{user.email}}</span>
+              </div>
+            {% else %}
+            <div class="stage-compte-admin">
+                
+            </div>
+            {% endif %}
         </div>
-        <!-- Avatar -->
-        <div class="dropdown">
-          <a
-            data-mdb-dropdown-init
-            class="dropdown-toggle d-flex align-items-center hidden-arrow"
-            href="#"
-            id="navbarDropdownMenuAvatar"
-            role="button"
-            aria-expanded="false"
-          >
-            <img 
-              src="{% static "img/avatar.jpg" %}"
-              class="rounded-circle img-stage"
-              height="50"
-              alt="Black and White Portrait of a Man"
-              loading="lazy"
-            />
-          </a>
-        </div>
+          <a class="btn btn-success" href=""><span>deconnexion</span></a>
+        {%endif %}
       </div>
+
       <!-- Right elements -->
+      
     </div>
     <!-- Container wrapper -->
   </nav>
   <!-- Navbar -->
+{% if user.is_authenticated %}
+{% else %}
 <div class="container">
   <div class="breadcrumb-stage">
     <a href="{% url 'loginstage' %}" class="text-warning">Identification</a> <span class="text-default">|</span> <a class="text-warning" href="{% url 'inscriptionstage' %}">Demande Stage</a>
   </div>
 </div>
+{% endif %}
   

@@ -5,6 +5,14 @@
 {% block title %}Login{% endblock %}
 
 {% block content %}
+{% for message in messages %}
+<div class="alert alert-danger alert-dismissible fade show">    
+    <span> {{ message.tags }}</span> {{ message }}
+    <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+</div>
+{% endfor %} 
 <h2 class="text-success h2-stage">Identification</h2>
 <div class="row">    
     <div class="col-md-6">
