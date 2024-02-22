@@ -81,9 +81,17 @@ def inscriptionStage(request):
     return render(request,template, context)
 
 def superAdmin(request):
-    template = "gestgionAdmin.html"
-    return render(request, template)
+    template = "gestionAdmin.html"
+    list_users = User.objects.all()
+    context = {
+        "list_users":list_users,
+    }
+    return render(request, template,context)
 
 def compteStagiaire(request):
     template = "gestionStage.html"
     return render(request,template)
+
+def logoutStage(request):
+    logout(request)
+    return redirect('loginstage')
