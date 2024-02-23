@@ -7,6 +7,7 @@ class demandeStage(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     lettre_de_motivation = models.CharField(max_length=500)
     projet = models.CharField(max_length=200)
+    dates = models.DateTimeField(auto_now=True)    
 
 class userCompleteModel(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
@@ -16,5 +17,6 @@ class userCompleteModel(models.Model):
 
 class notificationModel(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    projet = models.CharField(max_length=200)
     notification = models.CharField(max_length=200)
     obs = models.BooleanField()

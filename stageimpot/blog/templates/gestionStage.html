@@ -3,5 +3,44 @@
 {% block title %} Bienvenue - {{user}} {% endblock %}
 
 {% block content %}
+<div class="demande-stage">
+    
+    {% for completeUser in completeUserModel %}
+        {% if user.id != completeUser.user_id %}
+        <div class="row">
+            <div class="col-md-12">
+                <button class="btn btn-success form-control comp-des-info login-input">Completement des Informations</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="comp-des-info-active">
+                    <form action="{% url 'completestage' %}" method="POST" >{% csrf_token %}
+                        <input type="hidden" name="user_id" value="{{completeUser.user_id}}">
+                        {{completeUserForm}}
+                        <button class="btn btn-primary form-control login-input" type="submit">completer</button>
+                    </form>
+             </div>
+            </div>            
+        </div>
+        {% endif %}
+    {% endfor %}
+    <div class="row">
+        <div class="col-md-12">
+            <button class="btn btn-success form-control dem-stage login-input">Demande de stage</button>
+            <div class="demande-de-stage ">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint praesentium numquam voluptas dignissimos modi quia unde amet ut laboriosam facilis assumenda enim eaque rerum, reprehenderit nihil. Itaque molestiae voluptatum non!
+            </div>
+        </div>        
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <button class="btn btn-success form-control notification-stage login-input">Notification</button>
+            <div class="notification-stage-active">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur vero quae esse accusamus harum vitae porro delectus tempora quibusdam veritatis. Praesentium tempore, neque excepturi ab qui quo velit aliquid deserunt.
+            </div>
+        </div>        
 
+    </div>
+</div>
 {% endblock %}
