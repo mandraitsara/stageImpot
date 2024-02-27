@@ -4,7 +4,7 @@
 
 {% block content %}
 <div class="demande-stage">
-    
+    {{usersTest}}
     {% for completeUser in completeUserModel %}
         {% if user.id != completeUser.user_id %}
         <div class="row">
@@ -23,6 +23,7 @@
              </div>
             </div>            
         </div>
+        
         {% endif %}
     {% endfor %}
     <div class="row">

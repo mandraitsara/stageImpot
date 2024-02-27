@@ -94,13 +94,21 @@ def compteStagiaire(request):
     demandestage= demandeStage.objects.all()
     completeUserModel = userCompleteModel.objects.all()   
     
+    val = ""
+
     for usercomplete in completeUserModel:
-        print(usercomplete) 
+        val +=  str(usercomplete.id)
+    
+    if val == 3:
+        print('je taime')
+    print(val) 
         
+       
 
     completeUserForm = UserStageComplete()
     context = {
         'demandestage':demandestage,
+        'usersTest':val,
         'completeUserModel':completeUserModel,
         'completeUserForm':completeUserForm,
     }
