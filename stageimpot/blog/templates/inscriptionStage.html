@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{%block title %} Demande de Stage {% endblock %}
+
+{% block content %}
+<h3 class="h3_inscriptionStage text-success">Demande de Stage</h3>
+{% for message in messages %}
+<div class="alert alert-danger alert-dismissible fade show">    
+    <span> {{ message.tags }}</span> {{ message }}
+    <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+</div>
+{% endfor %} 
+<div class="row">
+    <div class="col-md-6">
+        <form action="{% url 'inscriptionstage' %}" method="POST">{% csrf_token %}
+            {{stageform}}
+            <button class="btn btn-success form-control login-input" type="submit">valider</button>
+        </form>
+    </div>
+    <div class="col-md-6 img-stage-demande " >
+
+    </div>
+</div>
+
+
+{%endblock%}

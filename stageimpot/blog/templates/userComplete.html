@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %} completement des informations  {%endblock %}
+
+{%block  content %}
+<div class="row">
+    <div class="col-md-12">
+        <button class="btn btn-success form-control comp-des-info login-input">Completement des Informations</button>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="comp-des-info-active">
+            <form action="{% url 'completestage' %}" method="POST" >{% csrf_token %}
+                <input type="hidden" name="user_id" value="{{user.id}}">
+                {{completeUserForm}}
+                <button class="btn btn-primary form-control login-input" type="submit">completer</button>
+            </form>
+     </div>
+    </div>            
+</div>
+{%endblock %}

@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {% if idStage %}    
+        {{idStage.username}}        
+    {% endif %}
+{% endblock%}
+
+{% block content %}
+    <div class="details-stage">
+        <div class="row">
+            <div class="col-md-6">
+                {% if idStage %}
+        <form action="" method="POST" >{% csrf_token %}
+            <label for="nom">Pseudo:</label><input class="form-control" type="text" value="{{idStage.username|upper}}" disabled>
+            <label for="nom">Nom:</label><input class="form-control" type="text" value="{{idStage.first_name|upper}}" disabled>
+            <label for="nom">Prenom:</label><input class="form-control" type="text" value="{{idStage.last_name|upper}}" disabled>
+            <label for="nom">E-mail:</label><input class="form-control" type="text" value="{{idStage.email|upper}}" disabled>
+        </form>
+            
+        {% endif %}
+            </div>
+            <div class="col-md-6">
+
+            </div>
+        </div>
+        
+    </div>
+{%endblock%}

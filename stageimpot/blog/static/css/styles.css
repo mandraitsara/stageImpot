@@ -1,0 +1,8 @@
+@import url("home.css");
+@import url("variables.css");
+body{
+    background-color: var(--bgcolor) !important;
+    color: var(--colorPrincipale) !important;
+    font-family: var(--font-family) !important;
+    
+}

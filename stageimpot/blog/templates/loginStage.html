@@ -1,0 +1,37 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+{% for message in messages %}
+<div class="alert alert-danger alert-dismissible fade show">    
+    <span> {{ message.tags }}</span> {{ message }}
+    <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+</div>
+{% endfor %} 
+<h2 class="text-success h2-stage">Identification</h2>
+<div class="row">    
+    <div class="col-md-6">
+        <div class="login-control">
+            
+            <form method="POST" action="{% url 'loginstage' %}"> {% csrf_token %}
+                {{loginForm}}
+                <label class="text-danger" for="stg-label">Demande stage</label><input type="checkbox" name="stage" id="checkbox-stage">
+            <button class="btn btn-success form-control login-input" type="submit">entrer</button>
+            
+            </form>
+        </div>    
+    </div>
+    <div class="col-md-6">
+        <div class="img-stage">
+            <img src="{% static '/img/dgi.png' %}" alt="" srcset="">
+        </div>
+    </div>
+</div>
+{% endblock %}        
+
+

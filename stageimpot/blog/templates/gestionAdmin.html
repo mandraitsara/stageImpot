@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{%block title %} Gestionnaire d'Administration {%endblock %}
+
+{%block content %}
+<div class="blog-admin">
+    <table class="table">
+        <thead class="bg-warning ">
+          <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Nom</th>
+            <th scope="col">Prenom</th>
+            <th scope="col">E-mail</th>
+            <th scope="col">Observation</th>
+          </tr>          
+        </thead>
+        {% for listUsers in list_users %}
+            {% if listUsers.is_superuser == False %}
+            <tr>
+                <td scope="col">{{listUsers.id}}</td>
+                <td scope="col">{{listUsers.first_name}}</td>
+                <td scope="col">{{listUsers.last_name}}</td>
+                <td scope="col">{{listUsers.email}}</td>
+                <td scope="col">
+                    <a class="btn btn-primary"  href="detailStage/{{listUsers.id}}">Voir</a>
+                </td>
+            </tr>
+            {% endif %}
+        {% endfor %}
+
+        <tbody>
+          
+      </table>
+
+      <!-- Button trigger modal -->
+
+
+</div>
+
+
+{%endblock %}

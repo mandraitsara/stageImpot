@@ -1,0 +1,56 @@
+.login-input {
+    height: 60px !important;
+  }
+
+  .login-input:focus {
+    border-color: var(--success) !important;
+    box-shadow: 0 0 0 .2rem var(--success) !important;
+  }
+
+  .btn.btn-success.form-control.login-input {
+    margin-top: 10px;
+  }
+
+  .img-stage {
+    background-image: url("/static/img/dgi.png");
+  }
+
+  .page-stage {
+    background-color:var(--color);
+  }
+
+  .container, .container-fluid, .container-lg, .container-md, .container-sm, .container-xl {
+    width: 100%;
+    padding-right: 0px !important;
+    padding-left: 0px !important;
+    margin-right: auto;
+    margin-left: auto;
+  }
+
+  .home-stage {
+    margin-top: 25px;
+    border: 2px solid var(--color);
+    padding: 10px 25px 10px 10px;
+  }
+
+  .text-success.h2-stage {
+    text-align: center;
+    font-size: 50px;
+  }
+
+  .nav-link.waves-effect.waves-light {
+    font-size: 70px;
+    text-transform: uppercase;
+    color: #fff !important;
+  }
+
+  .h3_inscriptionStage{
+    text-align: center;
+  }
+  
+  .img-stage-demande {
+    background-image: url(../img/img_stage_demande.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+
+  }
