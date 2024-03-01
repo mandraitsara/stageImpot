@@ -6,8 +6,8 @@ $(document).ready(function(){
         window.location.replace("/blog/inscriptionStage/")
     })
 
-    $('.dem-stage').click(function(){
-
+    $('.dem-stage').click(function(){        
+        
         $('.demande-de-stage').toggle()
     })
 

@@ -5,6 +5,8 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
 from django.contrib.auth import authenticate,login,logout
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt #pour manipuler l'ajax
 
 # Create your views here.
 
@@ -24,7 +26,13 @@ def loginStage(request):
                 if user.is_superuser == True:
                     return redirect('superadmin')
                 else:
-                    return redirect('comptestagiaire')                
+                    user_id = user.id
+                    id_user = userCompleteModel.objects.filter(user_id__exact=user_id)                   
+                    
+                    if id_user:
+                        return redirect('comptestagiaire')
+                    else:
+                        return redirect('completestage')
         else:
             messages.error(request, "authentification échoué")
             for field in logForm.errors:
@@ -61,9 +69,7 @@ def inscriptionStage(request):
             prenom = request.POST['prenom']
             email = request.POST['email']
             user = User.objects.create_user(first_name=nom,last_name=prenom,username=username,email=email,password=password)
-            
-            print(user)
-
+     
             if user is not None:
                 return redirect('loginstage')
             else:
@@ -87,30 +93,31 @@ def superAdmin(request):
     context = {
         "list_users":list_users,
     }
-    return render(request, template,context)
+    return render(request, template,context)  
 
 def compteStagiaire(request):
     template = "gestionStage.html"
-    demandestage= demandeStage.objects.all()
+    # demandestage= demandeStage.objects.all()    
     completeUserModel = userCompleteModel.objects.all()   
+    demandestage = demandeStageForm()
     
-    val = ""
+    
+    # val = ""
 
-    for usercomplete in completeUserModel:
-        val +=  str(usercomplete.id)
+    # for usercomplete in completeUserModel:
+    #     val +=  str(usercomplete.id)
     
-    if val == 3:
-        print('je taime')
-    print(val) 
+    # if val == 3:
+    #     print('je taime')
+    # print(val) 
         
        
 
-    completeUserForm = UserStageComplete()
+    # completeUserForm = UserStageComplete()
     context = {
         'demandestage':demandestage,
-        'usersTest':val,
         'completeUserModel':completeUserModel,
-        'completeUserForm':completeUserForm,
+        # 'completeUserForm':completeUserForm,
     }
 
     
@@ -133,16 +140,41 @@ def logoutStage(request):
     return redirect('loginstage')
 
 def completeStage(request):
+    completeUserForm = UserStageComplete(request.POST)
+    context = {
+        'completeUserForm':completeUserForm
+    }
     if request.method == 'POST':
-        user = request.POST['user_id']
-        date_de_naissance = request.POST['date_de_naissance']
-        filiere = request.POST['filiere']
-        telephone = request.POST['telephone']
+        if completeUserForm.is_valid():
+            user = request.POST['user_id']
+            date_de_naissance = request.POST['date_de_naissance']
+            filiere = request.POST['filiere']
+            telephone = request.POST['telephone']
+            stage_complete = userCompleteModel(user_id=user,date_de_naissance=date_de_naissance,filiere=filiere,telephone=telephone)
+            stage_complete.save()        
+            return redirect('comptestagiaire')
+        else:
+            return render(request, 'userComplete.html',context)        
+    return render(request, 'userComplete.html',context)
 
-        stage_complete = userCompleteModel(user_id=user,date_de_naissance=date_de_naissance,filiere=filiere,telephone=telephone)
+@csrf_exempt
+def demandestage(request):
+    user_id = request.POST.get('user_id')
+    projet = request.POST.get('projet')
+    lettre_de_motivation = request.POST.get('lettre_de_motivation')
+    filename = request.POST.get('filename')
 
-        if stage_complete.save():
-            redirect('comptestagiaire')
+    demande = demandeStage(user_id=user_id,projet=projet,lettre_de_motivation=lettre_de_motivation,fichier=filename)
+
+    save = demande.save()
+    messageR = 'enregistrement effectué'
+    messageE = 'enregistrement echoué'
+    content = {
+            'result':messageR,
+            'result':messageE
+                }    
+    if save:
+        return JsonResponse({'result':messageR})   
+    else:
+        return JsonResponse(content)
     
-    return render(request, 'userComplete.html')
-

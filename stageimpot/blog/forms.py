@@ -20,8 +20,8 @@ class UserStageComplete(forms.Form):
 
 class demandeStageForm(forms.Form):
     projet = forms.CharField(label='Projet', max_length=200, widget=forms.TextInput(attrs={'class':'form-control login-input'}))
-    lettre_de_motivation = forms.CharField(label='Lettre de Motivation', max_length=200, widget=forms.Textarea(attrs={'class':'form-control login-input'}))
-    filename = forms.CharField(label='CV', max_length=200, widget=forms.FileInput(attrs={'class':'form-control login-input'}))
+    lettre_de_motivation = forms.CharField(label='Lettre de Motivation', max_length=200, widget=forms.Textarea(attrs={'class':'form-control'}))
+    filename = forms.FileField(label='CV', max_length=200, widget=forms.FileInput(attrs={'class':'form-control login-input'}))
     
 
 

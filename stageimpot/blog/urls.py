@@ -9,6 +9,7 @@ urlpatterns = [
     path('superAdmin/detailStage/<int:id>',detailStage, name="detailstage"),
     path('compteStagiaire/',compteStagiaire, name="comptestagiaire"),
     path('logoutStage/',logoutStage, name="logoutstage"),
+    path('demandeStage/',demandestage,name="demandestage"),
     path('completeStage/',completeStage,name="completestage")
     
 

@@ -3,37 +3,26 @@
 {% block title %} Bienvenue - {{user}} {% endblock %}
 
 {% block content %}
+<div id="resultat">
+
+</div>
 <div class="demande-stage">
-    {{usersTest}}
-    {% for completeUser in completeUserModel %}
-        {% if user.id != completeUser.user_id %}
-        <div class="row">
-            <div class="col-md-12">
-                <button class="btn btn-success form-control comp-des-info login-input">Completement des Informations</button>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="comp-des-info-active">
-                    <form action="{% url 'completestage' %}" method="POST" >{% csrf_token %}
-                        <input type="hidden" name="user_id" value="{{completeUser.user_id}}">
-                        {{completeUserForm}}
-                        <button class="btn btn-primary form-control login-input" type="submit">completer</button>
-                    </form>
-             </div>
-            </div>            
-        </div>
-        
-        {% endif %}
-    {% endfor %}
+
     <div class="row">
         <div class="col-md-12">
             <button class="btn btn-success form-control dem-stage login-input">Demande de stage</button>
-            <div class="demande-de-stage ">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint praesentium numquam voluptas dignissimos modi quia unde amet ut laboriosam facilis assumenda enim eaque rerum, reprehenderit nihil. Itaque molestiae voluptatum non!
+            <div class="demande-de-stage">
+                        <form method="POST">  {% csrf_token %}
+                             <input type="hidden" name="user_id" value="{{user.id}}">
+                        {{demandestage}}
+
+                        <button class=" btn btn-primary login-input btn_envoye" >envoyé</button>
+                </form>
             </div>
+            
         </div>        
     </div>
+
     <div class="row">
         <div class="col-md-12">
             <button class="btn btn-success form-control notification-stage login-input">Notification</button>
@@ -44,4 +33,44 @@
 
     </div>
 </div>
+
+
+<script>
+    document.querySelector(".btn_envoye").addEventListener('click', event=>{
+        event.preventDefault();
+        var formData = new FormData();
+
+        console.log(formData)
+
+        var user_id = document.querySelector('[name=user_id]').value
+    
+        var projet = document.querySelector('#id_projet').value
+        var lettre_de_motivation = document.querySelector('#id_lettre_de_motivation').value
+        var filename = document.querySelector('#id_filename').value
+
+        formData.append('user_id',user_id)
+        formData.append('projet',projet)
+        formData.append('lettre_de_motivation',lettre_de_motivation)
+        formData.append('filename',filename)
+
+        let csrfTokenValue = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+        const request = new Request('{% url  'demandestage' %}',{
+            method:'POST',
+            body: formData,
+            headers : {"X-CSRFToken":csrfTokenValue}
+        })
+
+        fetch(request)
+        .then(response=>response.json())
+        .then(result=>{
+            const resultElement = document.querySelector("#resultat")
+            resultElement.innerHTML = result['result']
+
+        })       
+
+
+        
+    })
+</script>
 {% endblock %}
