@@ -159,6 +159,13 @@ def completeStage(request):
 
 @csrf_exempt
 def demandestage(request):
+    messageR = 'enregistrement effectué'
+    messageE = 'enregistrement echoué'
+    content = {
+            'result':messageR,
+            'result':messageE
+                }    
+
     user_id = request.POST.get('user_id')
     projet = request.POST.get('projet')
     lettre_de_motivation = request.POST.get('lettre_de_motivation')
@@ -167,14 +174,9 @@ def demandestage(request):
     demande = demandeStage(user_id=user_id,projet=projet,lettre_de_motivation=lettre_de_motivation,fichier=filename)
 
     save = demande.save()
-    messageR = 'enregistrement effectué'
-    messageE = 'enregistrement echoué'
-    content = {
-            'result':messageR,
-            'result':messageE
-                }    
+
     if save:
-        return JsonResponse({'result':messageR})   
+        return JsonResponse({'result':messageE})   
     else:
-        return JsonResponse(content)
+        return JsonResponse({'result':messageR})
     
