@@ -8,20 +8,30 @@
 
 {% block content %}
     <div class="details-stage - mov">
+        <h3 class="text-success">Information pour le stagiaire: </h3>
         <div class="row">
-            <div class="col-md-6">
+            
+            <div class="col-md-6">                
                 {% if idStage %}
         <form action="" method="POST" >{% csrf_token %}
             <label for="nom">Pseudo:</label><input class="form-control" type="text" value="{{idStage.username|upper}}" disabled>
             <label for="nom">Nom:</label><input class="form-control" type="text" value="{{idStage.first_name|upper}}" disabled>
             <label for="nom">Prenom:</label><input class="form-control" type="text" value="{{idStage.last_name|upper}}" disabled>
             <label for="nom">E-mail:</label><input class="form-control" type="text" value="{{idStage.email|upper}}" disabled>
+
+            <button class="btn btn-success">valider</button>
+            <button class="btn btn-danger">rejeter</button>
         </form>
             
-        {% endif %}
+                {% endif %}
             </div>
             <div class="col-md-6">
-
+                {% if complete_id %}
+                <label for="nom">Date de naissance:</label><input class="form-control" type="text" value="{{complete_id.date_de_naissance|upper}}" disabled>
+                <label for="nom">Filiere:</label><input class="form-control" type="text" value="{{complete_id.filiere|upper}}" disabled>
+                <label for="nom">Telephone:</label><input class="form-control" type="text" value="{{complete_id.telephone|upper}}" disabled>
+                <label for="nom">Ecole:</label><input class="form-control" type="text" value="{{complete_id.ecole|upper}}" disabled>
+                {% endif %}
             </div>
         </div>
         

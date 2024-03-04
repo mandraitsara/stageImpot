@@ -89,7 +89,8 @@ def inscriptionStage(request):
 
 def superAdmin(request):
     template = "gestionAdmin.html"
-    list_users = User.objects.all()
+    list_users = demandeStage.objects.all()
+    print(list_users)
     context = {
         "list_users":list_users,
     }
@@ -126,10 +127,13 @@ def compteStagiaire(request):
 
 def detailStage(request, id):
     template = 'detailStage.html'
-    users_id = User.objects.get(id=id)  
+    users_id = User.objects.get(id=id)
+    complete_id = userCompleteModel.objects.get(user_id=users_id)
+    print(complete_id)
 
     context = {
-        'idStage':users_id,       
+        'idStage':users_id,
+        'complete_id':complete_id
 
     }
     

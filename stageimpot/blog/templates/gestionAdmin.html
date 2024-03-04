@@ -14,18 +14,17 @@
             <th scope="col">Observation</th>
           </tr>          
         </thead>
-        {% for listUsers in list_users %}
-            {% if listUsers.is_superuser == False %}
+        {% for listUsers in list_users %}            
             <tr>
                 <td scope="col">{{listUsers.id}}</td>
-                <td scope="col">{{listUsers.first_name}}</td>
-                <td scope="col">{{listUsers.last_name}}</td>
-                <td scope="col">{{listUsers.email}}</td>
+                <td scope="col">{{listUsers.projet}}</td>
+                <td scope="col">{{listUsers.fichier}}</td>
+                <td scope="col">{{listUsers.lettre_de_motivation}}</td>
                 <td scope="col">
-                    <a class="btn btn-primary"  href="detailStage/{{listUsers.id}}">Voir</a>
+                    <a class="btn btn-primary"  href="detailStage/{{listUsers.user_id}}">Voir</a>
                 </td>
             </tr>
-            {% endif %}
+            
         {% endfor %}
 
         <tbody>

@@ -13,18 +13,23 @@
       </button>
 </div>
 {% endfor %} 
-<h2 class="text-success h2-stage">Identification - edit</h2>
-<div class="row">    
-    <div class="col-md-6">
-        <div class="login-control">
-            
+{% if user.is_authenticated %}
+<a class="btn btn-warning form-control login-input" href="{% url 'comptestagiaire' %}">ENTRER</a>
+{%else%}
+<h2 class="text-success h2-stage">Identification</h2>
+<div class="row">
+    <div class="col-md-6">      
+        
+
+        <div class="login-control">            
             <form method="POST" action="{% url 'loginstage' %}"> {% csrf_token %}
                 {{loginForm}}
                 <label class="text-danger" for="stg-label">Demande stage</label><input type="checkbox" name="stage" id="checkbox-stage">
             <button class="btn btn-success form-control login-input" type="submit">entrer</button>
             
             </form>
-        </div>    
+        </div>
+       
     </div>
     <div class="col-md-6">
         <div class="img-stage">
@@ -32,6 +37,7 @@
         </div>
     </div>
 </div>
+ {%endif%}    
 {% endblock %}        
 
 
