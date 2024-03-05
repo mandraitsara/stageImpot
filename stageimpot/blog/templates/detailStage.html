@@ -18,9 +18,15 @@
             <label for="nom">Nom:</label><input class="form-control" type="text" value="{{idStage.first_name|upper}}" disabled>
             <label for="nom">Prenom:</label><input class="form-control" type="text" value="{{idStage.last_name|upper}}" disabled>
             <label for="nom">E-mail:</label><input class="form-control" type="text" value="{{idStage.email|upper}}" disabled>
-
-            <button class="btn btn-success">valider</button>
-            <button class="btn btn-danger">rejeter</button>
+            <span>Les directions existent : </span>
+            <select class="form-control" name="direct" id="">
+                {% for directions in directions %}
+                <option value="{{directions.titre}}">{{directions.titre}}</option>
+                {% endfor %}
+            </select>
+            <label for="" class="btn btn-success"><input type="radio" name="obs" id="" value="1"> validé </label>
+            <label for="" class="btn btn-danger "><input type="radio" name="obs" id="" value="0">rejeté </label><br>
+            <button class="btn btn-warning form-control login-input ">ENVOYE</button>            
         </form>
             
                 {% endif %}

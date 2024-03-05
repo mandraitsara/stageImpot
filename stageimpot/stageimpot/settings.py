@@ -120,6 +120,10 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATIC_ROOT ='/stageimpot/stageimpot/blog/static/'
 
+MEDIA_URL ='media/'
+
+MEDIA_ROOT = BASE_DIR / 'blog/static/media/'
+
 STATICFILES_DIRS = [
     BASE_DIR / "blog/static",
     "/stageimpot/",

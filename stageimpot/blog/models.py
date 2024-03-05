@@ -28,3 +28,7 @@ class notificationModel(models.Model):
     projet = models.CharField(max_length=200)
     notification = models.CharField(max_length=200)
     obs = models.BooleanField()
+
+class directionUser(models.Model):
+    titre = models.CharField(max_length=150)
+    description = models.CharField(max_length=100)
