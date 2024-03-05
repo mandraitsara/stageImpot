@@ -40,26 +40,31 @@
         event.preventDefault();
         var formData = new FormData();
 
-        console.log(formData)
-
+        
         var user_id = document.querySelector('[name=user_id]').value
     
         var projet = document.querySelector('#id_projet').value
         var lettre_de_motivation = document.querySelector('#id_lettre_de_motivation').value
-        var filename = document.querySelector('#id_filename').value
+        var filename = document.querySelector('#id_filename')
+
+        
 
         formData.append('user_id',user_id)
         formData.append('projet',projet)
-        formData.append('lettre_de_motivation',lettre_de_motivation)
-        formData.append('filename',filename)
+        formData.append('lettre_de_motivation', lettre_de_motivation)
+        formData.append('filename',filename.files)
 
         let csrfTokenValue = document.querySelector('[name=csrfmiddlewaretoken]').value;
 
+        
+        
         const request = new Request('{% url  'demandestage' %}',{
             method:'POST',
             body: formData,
             headers : {"X-CSRFToken":csrfTokenValue}
         })
+        
+        
 
         fetch(request)
         .then(response=>response.json())

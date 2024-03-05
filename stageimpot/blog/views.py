@@ -100,7 +100,7 @@ def compteStagiaire(request):
     template = "gestionStage.html"
     # demandestage= demandeStage.objects.all()    
     completeUserModel = userCompleteModel.objects.all()   
-    demandestage = demandeStageForm()
+    demandestage = demandeStageForm(request.POST, request.FILES)
     
     
     # val = ""
@@ -129,12 +129,14 @@ def detailStage(request, id):
     template = 'detailStage.html'
     users_id = User.objects.get(id=id)
     complete_id = userCompleteModel.objects.get(user_id=users_id)
+    demande_id = demandeStage.objects.filter(user_id=users_id)
     directions = directionUser.objects.all()
 
     context = {
         'idStage':users_id,
         'complete_id':complete_id,
-        'directions':directions
+        'directions':directions,
+        'demande_id':demande_id
 
     }
     
@@ -174,7 +176,7 @@ def demandestage(request):
     user_id = request.POST.get('user_id')
     projet = request.POST.get('projet')
     lettre_de_motivation = request.POST.get('lettre_de_motivation')
-    filename = request.POST.get('filename')
+    filename = request.FILES.getlist('filename')
 
     demande = demandeStage(user_id=user_id,projet=projet,lettre_de_motivation=lettre_de_motivation,fichier=filename)
 

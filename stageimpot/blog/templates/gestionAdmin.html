@@ -13,14 +13,14 @@
             <th scope="col">Obs</th>
           </tr>          
         </thead>
-        {% for listUsers in list_users %}            
+        {% for stageDemande in list_users %}            
             <tr>
-                <td scope="col">{{listUsers.id}}</td>
-                <td scope="col">{{listUsers.projet}}</td>
-                <td scope="col"><a href="{{listUsers.fichier}}">CV</a></td>
-                <td scope="col">{{listUsers.lettre_de_motivation}}</td>
+                <td scope="col">{{stageDemande.user_id}}</td>
+                <td scope="col">{{stageDemande.projet}}</td>
+                <td scope="col"><a href="{{stageDemande.fichier}}">CV</a></td>
+                <td scope="col">{{stageDemande.lettre_de_motivation}}</td>
                 <td scope="col">
-                    <a class="btn btn-primary"  href="detailStage/{{listUsers.user_id}}">Voir</a>
+                    <a class="btn btn-primary"  href="detailStage/{{stageDemande.user_id}}">Voir</a>
                 </td>
             </tr>
             
