@@ -7,7 +7,7 @@ class demandeStage(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     lettre_de_motivation = models.CharField(max_length=500)
     projet = models.CharField(max_length=200)
-    fichier = models.FileField(upload_to='media', null=True , blank=True)
+    fichier = models.FileField()
     dates = models.DateTimeField(auto_now=True)
     observation = models.CharField(max_length=200)
     note = models.CharField(max_length=10)

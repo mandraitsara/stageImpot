@@ -12,11 +12,11 @@
         <div class="col-md-12">
             <button class="btn btn-success form-control dem-stage login-input">Demande de stage</button>
             <div class="demande-de-stage">
-                        <form method="POST">  {% csrf_token %}
+                        <form  enctype="multipart/form-data" method="POST" action ="{% url 'demandestage' %}">  {% csrf_token %}
                              <input type="hidden" name="user_id" value="{{user.id}}">
-                        {{demandestage}}
+                                {{demandestage}}                        
 
-                        <button class=" btn btn-primary login-input btn_envoye" >envoyé</button>
+                        <button class=" btn btn-primary login-input btn_envoye" type="submit">envoyé</button>
                 </form>
             </div>
             
@@ -27,7 +27,22 @@
         <div class="col-md-12">
             <button class="btn btn-success form-control notification-stage login-input">Notification</button>
             <div class="notification-stage-active">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur vero quae esse accusamus harum vitae porro delectus tempora quibusdam veritatis. Praesentium tempore, neque excepturi ab qui quo velit aliquid deserunt.
+                <table class="table">
+                    <tr>
+                        <th>projet</th>
+                        <th>observation</th>
+                    </tr>                   
+                        {% for stage in  stagiaires%}
+                            {% if stage.user_id == user.id %}                         
+                                <tr>                   
+                                    <td>{{stage.projet}}</td>
+                                    <td>{% if stage.observation == '' %}<span>aucune reponse</span>{%else%}{{stage.observation}} {%endif%}</td>                                    
+                                </tr>
+                            {%endif%}
+                        {%endfor%}                        
+                    
+                    
+                </table>
             </div>
         </div>        
 
@@ -36,7 +51,7 @@
 
 
 <script>
-    document.querySelector(".btn_envoye").addEventListener('click', event=>{
+    {% comment %} document.querySelector(".btn_envoye").addEventListener('click', event=>{
         event.preventDefault();
         var formData = new FormData();
 
@@ -45,14 +60,12 @@
     
         var projet = document.querySelector('#id_projet').value
         var lettre_de_motivation = document.querySelector('#id_lettre_de_motivation').value
-        var filename = document.querySelector('#id_filename')
-
-        
+        var filename = document.querySelector('#id_fichier').files[0].name        
 
         formData.append('user_id',user_id)
         formData.append('projet',projet)
         formData.append('lettre_de_motivation', lettre_de_motivation)
-        formData.append('filename',filename.files)
+        formData.append('filename', filename)
 
         let csrfTokenValue = document.querySelector('[name=csrfmiddlewaretoken]').value;
 
@@ -62,7 +75,7 @@
             method:'POST',
             body: formData,
             headers : {"X-CSRFToken":csrfTokenValue}
-        })
+        }) 
         
         
 
@@ -76,6 +89,6 @@
 
 
         
-    })
+    }) {% endcomment %}
 </script>
 {% endblock %}

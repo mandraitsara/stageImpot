@@ -28,7 +28,8 @@ def loginStage(request):
                 else:
                     user_id = user.id
                     id_user = userCompleteModel.objects.filter(user_id__exact=user_id)                   
-                    
+                    # stagiaires_id = demandeStage.objects.filter(user_id__exact=user_id)
+                    # print(stagiaires_id)
                     if id_user:
                         return redirect('comptestagiaire')
                     else:
@@ -101,6 +102,9 @@ def compteStagiaire(request):
     # demandestage= demandeStage.objects.all()    
     completeUserModel = userCompleteModel.objects.all()   
     demandestage = demandeStageForm(request.POST, request.FILES)
+    stagiaires = demandeStage.objects.all()[:5]     
+
+   
     
     
     # val = ""
@@ -118,6 +122,7 @@ def compteStagiaire(request):
     context = {
         'demandestage':demandestage,
         'completeUserModel':completeUserModel,
+        'stagiaires':stagiaires,
         # 'completeUserForm':completeUserForm,
     }
 
@@ -164,26 +169,40 @@ def completeStage(request):
             return render(request, 'userComplete.html',context)        
     return render(request, 'userComplete.html',context)
 
-@csrf_exempt
+#@csrf_exempt
 def demandestage(request):
-    messageR = 'enregistrement effectué'
-    messageE = 'enregistrement echoué'
-    content = {
-            'result':messageR,
-            'result':messageE
-                }    
+    if request.method == 'POST':
+        stage = demandeStageForm(request.POST, request.FILES)
+        if stage.is_valid():
+            user_id = request.POST['user_id']
+            projet = request.POST['projet']
+            lettre_de_motivation = request.POST['lettre_de_motivation']
+            filename = request.FILES['filename']
+            print(user_id)
+            print(filename)
+            demande = demandeStage(user_id=user_id,projet=projet,lettre_de_motivation=lettre_de_motivation,fichier=filename)
+            demande.save()
+        return redirect('comptestagiaire')
+    return redirect('comptestagiaire')
+    
+    #     messageR = 'enregistrement effectué'
+    #     messageE = 'enregistrement echoué' content = {
+    #         'result':messageR,
+    #         'result':messageE
+    #             }    
 
-    user_id = request.POST.get('user_id')
-    projet = request.POST.get('projet')
-    lettre_de_motivation = request.POST.get('lettre_de_motivation')
-    filename = request.FILES.getlist('filename')
+    # user_id = request.POST.get('user_id')
+    # projet = request.POST.get('projet')
+    # lettre_de_motivation = request.POST.get('lettre_de_motivation')
+    # filename = request.FILES.get('filename')
+    # print('testf  '+ str(filename))
+    # demande = demandeStage(user_id=user_id,projet=projet,lettre_de_motivation=lettre_de_motivation,fichier=filename)
 
-    demande = demandeStage(user_id=user_id,projet=projet,lettre_de_motivation=lettre_de_motivation,fichier=filename)
+    # return JsonResponse({'result':'salut'})
+    #save = demande.save()
 
-    save = demande.save()
-
-    if save:
-        return JsonResponse({'result':messageE})   
-    else:
-        return JsonResponse({'result':messageR})
+   #if save:
+   #     return JsonResponse({'result':messageE})   
+   # else:
+   #     return JsonResponse({'result':messageR})
     
