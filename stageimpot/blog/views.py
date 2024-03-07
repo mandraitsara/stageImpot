@@ -8,6 +8,7 @@ from django.contrib.auth import authenticate,login,logout
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt #pour manipuler l'ajax
 from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
+from django.db.models.functions import Coalesce
 
 # Create your views here.
 
@@ -103,15 +104,17 @@ def compteStagiaire(request):
     # demandestage= demandeStage.objects.all()    
     completeUserModel = userCompleteModel.objects.all()   
     demandestage = demandeStageForm(request.POST, request.FILES)
-    stagiaires = demandeStage.objects.all().order_by('dates')[:5][::-1]
-    nb = demandeStage.objects.count()
+    stagiaires = demandeStage.objects.order_by(Coalesce('dates','projet').desc())
     
-    page_num = request.GET.get('page',1)
+    
+    page = request.GET.get('page',1)
 
-    paginator = Paginator(stagiaires,6)
+    paginator = Paginator(stagiaires,10)
+    
 
     try:
-        page_obj= paginator.page(page_num)
+        page_obj= paginator.page(page)
+        print('page...'+str(page_obj))
     except PageNotAnInteger:
         page_obj = paginator.page(1)
     except EmptyPage:
@@ -221,4 +224,20 @@ def demandestage(request):
    #     return JsonResponse({'result':messageE})   
    # else:
    #     return JsonResponse({'result':messageR})
-    
+
+def noteStage(request):
+    if request.method=='POST':    
+        idClients = request.POST['idStage']
+        EditClients = demandeStage.objects.get(user_id=idClients)
+        observation = request.POST['obs']
+        directions = request.POST['direct']
+
+        EditClients.observation = observation        
+        EditClients.departement = directions
+        EditClients.save()
+        print('enregistrement effectué..')
+
+        #print('j\'affiche le numero de user : ' + str(EditClients.user_id))
+        return redirect('superadmin')
+
+    return redirect('superadmin')

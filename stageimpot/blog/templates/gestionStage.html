@@ -31,6 +31,7 @@
                     <tr class="bg-primary text-white">
                         <th>projet</th>
                         <th>date d'envoye</th>
+                        <th>Information</th>
                         <th>observation</th>
                     </tr>                   
                         {% for stage in  stagiaires%}
@@ -38,13 +39,24 @@
                                 <tr>                   
                                     <td>{{stage.projet}}</td>
                                     <td>{{stage.dates}}</td>
-                                    <td>{% if stage.observation == '' %}<span>aucune reponse</span>{%else%}{{stage.observation}} {%endif%}</td>                                    
+                                    <td>{{stage.note}}</td>
+                                    <td>{% if stage.observation == '' %}<span>aucune reponse</span>{%else%}
+                                                {% if stage.observation == '1' %}
+                                                    <span class="text-success">validé</span>
+                                                    {% else %}
+                                                        <span style="color:red">rejeté</span>
+                                                        {%endif%}                                        
+                                        {%endif%}
+                                    </td>                                    
                                 </tr>
                             {%endif%}
                         {%endfor%}                        
                     
                     
-                </table>
+                            </table>
+                    
+
+
             </div>
         </div>        
 

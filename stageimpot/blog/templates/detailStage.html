@@ -13,13 +13,15 @@
             
             <div class="col-md-6">                
                 {% if idStage %}
-                     <form action="" method="POST" >{% csrf_token %}
+                     <form action="{% url 'notestage' %}" method="POST" >{% csrf_token %}
+                        <input type="hidden" name="idStage" value="{{idStage.id}}">
                     <label for="nom">Pseudo:</label><input class="form-control" type="text" value="{{idStage.username|upper}}" disabled>
                     <label for="nom">Nom:</label><input class="form-control" type="text" value="{{idStage.first_name|upper}}" disabled>
                     <label for="nom">Prenom:</label><input class="form-control" type="text" value="{{idStage.last_name|upper}}" disabled>
                     <label for="nom">E-mail:</label><input class="form-control" type="text" value="{{idStage.email|upper}}" disabled>
             
                     {%if demande_id %}
+                    
             <label for="nom">Projet</label><input class="form-control" type="text" value="{{demande_id.project|upper}}" disabled>
             <label for="nom">Lettre de motivation</label><br>
             <textarea class="form-control" name="" id="" cols="30" rows="10" disabled>{{demande_id.lettre_de_motivation|upper}}</textarea>

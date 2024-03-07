@@ -10,7 +10,8 @@ urlpatterns = [
     path('compteStagiaire/',compteStagiaire, name="comptestagiaire"),
     path('logoutStage/',logoutStage, name="logoutstage"),
     path('demandeStage/',demandestage,name="demandestage"),
-    path('completeStage/',completeStage,name="completestage")
+    path('completeStage/',completeStage,name="completestage"),
+    path('/noteStage/',noteStage,name="notestage"),
     
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
