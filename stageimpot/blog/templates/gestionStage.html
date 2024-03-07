@@ -28,14 +28,16 @@
             <button class="btn btn-success form-control notification-stage login-input">Notification</button>
             <div class="notification-stage-active">
                 <table class="table">
-                    <tr>
+                    <tr class="bg-primary text-white">
                         <th>projet</th>
+                        <th>date d'envoye</th>
                         <th>observation</th>
                     </tr>                   
                         {% for stage in  stagiaires%}
                             {% if stage.user_id == user.id %}                         
                                 <tr>                   
                                     <td>{{stage.projet}}</td>
+                                    <td>{{stage.dates}}</td>
                                     <td>{% if stage.observation == '' %}<span>aucune reponse</span>{%else%}{{stage.observation}} {%endif%}</td>                                    
                                 </tr>
                             {%endif%}

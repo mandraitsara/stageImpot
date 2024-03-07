@@ -7,6 +7,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth import authenticate,login,logout
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt #pour manipuler l'ajax
+from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
 
 # Create your views here.
 
@@ -102,7 +103,21 @@ def compteStagiaire(request):
     # demandestage= demandeStage.objects.all()    
     completeUserModel = userCompleteModel.objects.all()   
     demandestage = demandeStageForm(request.POST, request.FILES)
-    stagiaires = demandeStage.objects.all()[:5]     
+    stagiaires = demandeStage.objects.all().order_by('dates')[:5][::-1]
+    nb = demandeStage.objects.count()
+    
+    page_num = request.GET.get('page',1)
+
+    paginator = Paginator(stagiaires,6)
+
+    try:
+        page_obj= paginator.page(page_num)
+    except PageNotAnInteger:
+        page_obj = paginator.page(1)
+    except EmptyPage:
+        page_obj = paginator.page(paginator.num_pages)
+    
+
 
    
     
@@ -123,6 +138,7 @@ def compteStagiaire(request):
         'demandestage':demandestage,
         'completeUserModel':completeUserModel,
         'stagiaires':stagiaires,
+        'page_obj':page_obj,
         # 'completeUserForm':completeUserForm,
     }
 
