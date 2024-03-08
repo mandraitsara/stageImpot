@@ -153,7 +153,7 @@ def detailStage(request, id):
     template = 'detailStage.html'
     users_id = User.objects.get(id=id)
     complete_id = userCompleteModel.objects.get(user_id=users_id)
-    demande_id = demandeStage.objects.filter(user_id=users_id)
+    demande_id = demandeStage.objects.get(user_id=users_id)
     directions = directionUser.objects.all()
 
     context = {
@@ -228,7 +228,8 @@ def demandestage(request):
 def noteStage(request):
     if request.method=='POST':    
         idClients = request.POST['idStage']
-        EditClients = demandeStage.objects.get(user_id=idClients)
+        print('client id =' + str(idClients))
+        EditClients = demandeStage.objects.get(id=idClients)
         observation = request.POST['obs']
         directions = request.POST['direct']
 
