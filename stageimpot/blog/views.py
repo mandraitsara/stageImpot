@@ -153,7 +153,7 @@ def detailStage(request, id):
     template = 'detailStage.html'
     users_id = User.objects.get(id=id)
     complete_id = userCompleteModel.objects.get(user_id=users_id)
-    demande_id = demandeStage.objects.get(user_id=users_id)
+    demande_id = demandeStage.objects.filter(user_id=users_id)
     directions = directionUser.objects.all()
 
     context = {
