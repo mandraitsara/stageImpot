@@ -14,7 +14,7 @@
 </div>
 {% endfor %} 
 {% if user.is_authenticated %}
-    {% if user.is_superuser == "True" %}
+    {% if user.is_superuser == 1 %}
         <script type="text/javascript">
         window.location.href="/blog/superAdmin/"
         </script>
@@ -28,7 +28,6 @@
 <h2 class="text-success h2-stage">Identification</h2>
 <div class="row">
     <div class="col-md-6">      
-        
 
         <div class="login-control">            
             <form method="POST" action="{% url 'loginstage' %}"> {% csrf_token %}

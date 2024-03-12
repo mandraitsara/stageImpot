@@ -3,10 +3,9 @@
 {%block title %} Gestionnaire d'Administration {%endblock %}
 
 {%block content %}
-{%if  users.is_authenticated %}
+{%if  user.is_authenticated %}
 
 <div class="blog-admin">
-
 
     <table class="table">
         <thead class="bg-warning ">
