@@ -7,20 +7,26 @@
     <table class="table">
         <thead class="bg-warning ">
           <tr>
-            <th scope="col">Id</th>
             <th scope="col">Projet</th>
             <th scope="col">Fichier</th>
-            <th scope="col">Obs</th>
+            <th scope="col">Observation</th>
+            <th scope="col">Tâche à Faire</th>
           </tr>          
         </thead>
         {% for stageDemande in list_users %}            
             <tr>
-                <td scope="col">{{stageDemande.user_id}}</td>
                 <td scope="col">{{stageDemande.projet}}</td>
-                <td scope="col"><a href="/blog/media/fichier-stage/{{stageDemande.fichier}}">CV</a></td>
-                <td scope="col">{{stageDemande.lettre_de_motivation}}</td>
+                <td scope="col"><a class="btn btn-warning" href="/blog/media/fichier-stage/{{stageDemande.fichier}}">CV</a></td>
+                <td scope="col">{% if stageDemande.observation == '' %}<span>aucune reponse</span>{%else%}
+                  {% if stageDemande.observation == '1' %}
+                      <span class="text-success">validé</span>
+                      {% else %}
+                          <span style="color:red">rejeté</span>
+                          {%endif%}                                        
+          {%endif%}</td>
                 <td scope="col">
-                    <a class="btn btn-primary"  href="detailStage/{{stageDemande.user_id}}">Voir</a>
+                    <a class="btn btn-primary"  href="detailStage/{{stageDemande.id_user}}">details de demande</a>
+                    <a class="btn btn-success"  href="voirDemandeStage/{{stageDemande.id}}">Analyse de dossiers</a>
                 </td>
             </tr>
             

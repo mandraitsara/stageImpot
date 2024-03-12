@@ -7,37 +7,29 @@
 {% endblock%}
 
 {% block content %}
-    <div class="details-stage - mov">
+    <div class="details-stage">
         <h3 class="text-success">Information pour le stagiaire: </h3>
+        {%if idStage%}
+        <h5>Bonjour, {{idStage.last_name}}</h5>
+        {%endif%}
+        
         <div class="row">
             
             <div class="col-md-6">                
                 {% if idStage %}
-                     <form action="{% url 'notestage' %}" method="POST" >{% csrf_token %}
-                        
+               
+                    <input type="hidden" name="idStage" value="{{idStage.id}}">
                     <label for="nom">Pseudo:</label><input class="form-control" type="text" value="{{idStage.username|upper}}" disabled>
                     <label for="nom">Nom:</label><input class="form-control" type="text" value="{{idStage.first_name|upper}}" disabled>
                     <label for="nom">Prenom:</label><input class="form-control" type="text" value="{{idStage.last_name|upper}}" disabled>
                     <label for="nom">E-mail:</label><input class="form-control" type="text" value="{{idStage.email|upper}}" disabled>
-            
-                    {%if demande_id %}
-            <input type="hidden" name="idStage" value="{{demande_id.id}}">
+                    
+                    {% comment %} <input type="text" name="idStage" value="{{demande_id.id}}">
+                        
             <label for="nom">Projet</label><input class="form-control" type="text" value="{{demande_id.projet|upper}}" disabled>
             <label for="nom">Lettre de motivation</label><br>
-            <textarea class="form-control" name="" id="" cols="30" rows="10" disabled>{{demande_id.lettre_de_motivation|upper}}</textarea>
-            {%endif %}
-<br>
-            <span>Les directions existent : </span>
-            <select class="form-control" name="direct" id="">
-                {% for directions in directions %}
-                <option value="{{directions.titre}}">{{directions.titre}}</option>
-                {% endfor %}
-            </select>
-            <label for="" class="btn btn-success"><input type="radio" name="obs" id="" value="1"> validé </label>
-            <label for="" class="btn btn-danger "><input type="radio" name="obs" id="" value="0">rejeté </label><br>
-            <button class="btn btn-warning form-control login-input ">ENVOYE</button>            
-        </form>
-            
+            <textarea class="form-control" name="" id="" cols="30" rows="10" disabled>{{demande_id.lettre_de_motivation|upper}}</textarea> {% endcomment %}
+                          <a class="btn btn-danger"href="{% url 'superadmin' %}">retour</a>   
                 {% endif %}
             </div>
             <div class="col-md-6">

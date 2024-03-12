@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %} Observation de Demande de Stage {%endblock%}
+
+{%block content %}
+{% if dStage %}
+<form action="{% url 'notestage' %}" method="POST" >{% csrf_token %}    
+<input type="hidden" name="idStage" value="{{dStage.id}}">
+    <label for="">Projet</label><input class="form-control"  type="text"  value="{{dStage.projet}}" disabled>
+    
+    <label for="">Lettre de motivation</label><textarea class="form-control" disabled> {{dStage.lettre_de_motivation}}</textarea>
+
+    <label for="">Date du dépot de dossier</label><input class="form-control" type="text"  value="{{dStage.dates}}" disabled>
+    <label for="">CV</label><a class="btn btn-warning" href="/blog/media/fichier-stage/{{dStage.fichier}}">CV</a><br>
+    <span>Les directions existent : </span>
+            <select class="form-control" name="direct" id="">
+                {% for directions in directions %}
+                <option value="{{directions.titre}}">{{directions.titre}}</option>
+                {% endfor %}
+            </select>
+            <label for="" class="btn btn-success"><input type="radio" name="obs" id="" value="1"> validé </label>
+            <label for="" class="btn btn-danger "><input type="radio" name="obs" id="" value="0">rejeté </label><br>
+            <button class="btn btn-warning form-control login-input ">ENVOYE</button>   
+</form>
+<a class="btn btn-danger"href="{% url 'superadmin' %}">retour</a>   
+{%endif%}
+{%endblock%}

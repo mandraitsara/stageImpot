@@ -4,12 +4,12 @@ from django.contrib.auth.models import User
 # Create your models here.
 
 class demandeStage(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
-    lettre_de_motivation = models.CharField(max_length=500)
+    id_user = models.CharField(max_length=150)
     projet = models.CharField(max_length=200)
     fichier = models.FileField()
     dates = models.DateTimeField(auto_now=True)
     observation = models.CharField(max_length=200)
+    lettre_de_motivation =models.CharField(max_length=200)
     note = models.CharField(max_length=10)
     departement = models.CharField(max_length=150)
     lieux_de_stage = models.CharField(max_length=150)

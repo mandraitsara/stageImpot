@@ -93,7 +93,7 @@ def inscriptionStage(request):
 def superAdmin(request):
     template = "gestionAdmin.html"
     list_users = demandeStage.objects.all()
-    print(list_users)
+    
     context = {
         "list_users":list_users,
     }
@@ -148,19 +148,26 @@ def compteStagiaire(request):
     
     return render(request,template,context)
 
+def voirDemandeStage(request,id):
+    dStage = demandeStage.objects.get(id=id)
+    directions = directionUser.objects.all()
+    templates = 'voirDemandeStage.html'
+    context = {
+        'directions':directions,
+        'dStage':dStage,
+    }
+    return render(request, templates,context)
 
-def detailStage(request, id):
+def detailStage(request,id):
     template = 'detailStage.html'
     users_id = User.objects.get(id=id)
-    complete_id = userCompleteModel.objects.get(user_id=users_id)
-    demande_id = demandeStage.objects.filter(user_id=users_id)
-    directions = directionUser.objects.all()
+    complete_id = userCompleteModel.objects.get(user_id=users_id)    
+    
 
     context = {
         'idStage':users_id,
         'complete_id':complete_id,
-        'directions':directions,
-        'demande_id':demande_id
+        
 
     }
     
@@ -197,9 +204,7 @@ def demandestage(request):
             projet = request.POST['projet']
             lettre_de_motivation = request.POST['lettre_de_motivation']
             filename = request.FILES['filename']
-            print(user_id)
-            print(filename)
-            demande = demandeStage(user_id=user_id,projet=projet,lettre_de_motivation=lettre_de_motivation,fichier=filename)
+            demande = demandeStage(id_user=user_id,projet=projet,lettre_de_motivation=lettre_de_motivation,fichier=filename)
             demande.save()
         return redirect('comptestagiaire')
     return redirect('comptestagiaire')
@@ -228,7 +233,7 @@ def demandestage(request):
 def noteStage(request):
     if request.method=='POST':    
         idClients = request.POST['idStage']
-        print('client id =' + str(idClients))
+        # idClient = request.GET['idStage']        
         EditClients = demandeStage.objects.get(id=idClients)
         observation = request.POST['obs']
         directions = request.POST['direct']

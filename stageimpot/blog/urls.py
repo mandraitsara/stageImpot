@@ -12,6 +12,7 @@ urlpatterns = [
     path('demandeStage/',demandestage,name="demandestage"),
     path('completeStage/',completeStage,name="completestage"),
     path('/noteStage/',noteStage,name="notestage"),
+    path('superAdmin/voirDemandeStage/<int:id>',voirDemandeStage, name="voirdemandestage"),
     
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

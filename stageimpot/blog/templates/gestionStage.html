@@ -35,7 +35,7 @@
                         <th>observation</th>
                     </tr>                   
                         {% for stage in  stagiaires%}
-                            {% if stage.user_id == user.id %}                         
+                            {% if stage.id_user == user.id %}                         
                                 <tr>                   
                                     <td>{{stage.projet}}</td>
                                     <td>{{stage.dates}}</td>
