@@ -14,7 +14,16 @@
 </div>
 {% endfor %} 
 {% if user.is_authenticated %}
-<a class="btn btn-warning form-control login-input" href="{% url 'comptestagiaire' %}">ENTRER</a>
+    {% if user.is_superuser == "True" %}
+        <script type="text/javascript">
+        window.location.href="/blog/superAdmin/"
+        </script>
+    {%else%}
+    <script type="text/javascript">
+    window.location.href="/blog/compteStagiaire/"
+    </script>
+    {%endif%}
+{% comment %} <a class="btn btn-warning form-control login-input" href="{% url 'comptestagiaire' %}">ENTRER</a> {% endcomment %}
 {%else%}
 <h2 class="text-success h2-stage">Identification</h2>
 <div class="row">

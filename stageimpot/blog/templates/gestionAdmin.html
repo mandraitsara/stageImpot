@@ -3,7 +3,11 @@
 {%block title %} Gestionnaire d'Administration {%endblock %}
 
 {%block content %}
+{%if  users.is_authenticated %}
+
 <div class="blog-admin">
+
+
     <table class="table">
         <thead class="bg-warning ">
           <tr>
@@ -13,6 +17,8 @@
             <th scope="col">Tâche à Faire</th>
           </tr>          
         </thead>
+
+
         {% for stageDemande in list_users %}            
             <tr>
                 <td scope="col">{{stageDemande.projet}}</td>
@@ -41,5 +47,10 @@
 
 </div>
 
+{%else%}
+<script type="text/javascript">
+window.location.href="/blog/"
+</script>
+{%endif%}
 
 {%endblock %}

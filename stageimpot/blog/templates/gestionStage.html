@@ -3,6 +3,7 @@
 {% block title %} Bienvenue - {{user}} {% endblock %}
 
 {% block content %}
+{% if user.is_authenticated %}
 <div id="resultat">
 
 </div>
@@ -105,4 +106,10 @@
         
     }) {% endcomment %}
 </script>
+
+{%else%}
+<script type="text/javascript">
+    window.location.href="/blog/"
+</script>
+{%endif%}
 {% endblock %}
